@@ -15,7 +15,7 @@ $.fn.pano = function(options){
 		duration = duration || 0;
 		cb = cb || function(){};
 		$pano.animate({
-			"background-position-x": newPos.toString() + "px"
+			"background-position": newPos.toString() + "px 50%" 
 		}, duration, "linear", cb);
 	};
 	
@@ -26,7 +26,7 @@ $.fn.pano = function(options){
 	};
 	
 	var getCurrentPosition = function() {
-		return parseInt($pano.css("background-position-x").replace("px", ""));
+		return parseInt($pano.css("background-position").split(" ")[0].replace("px", ""));
 	};
 	
 	var indicateMovement = function() {
