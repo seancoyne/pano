@@ -35,6 +35,31 @@ $.fn.pano = function(options){
 	
 	var noMovement = function() {
 		$pano.removeClass("moving");
+	};
+	
+	var insideImage = function(mouseXPos) {
+		var $offsetLeft = $pano.offset().left;
+        var maxLeft = $offsetLeft;
+        var maxRight = $offsetLeft + $pano.width();
+        if( mouseXPos < maxLeft || mouseXPos > maxRight) {
+        	return false;
+        }
+        return true;
+	};
+	
+	var dragMove = function(xPos, startPosition, cb) {
+	
+        // dont move if you're outside the image
+        if (!insideImage(xPos)) {
+            return false;
+        } 
+        
+        // calculate the change in position
+		var diff = (xPos - startPosition);
+		
+		// move it
+		moveBackgroundBy(diff, 0, cb);
+		
 	}
 	
 	var leftMover,
@@ -63,11 +88,30 @@ $.fn.pano = function(options){
 		indicateMovement();
 		
 		// immediately move 
-		moveBackgroundBy(-ctrlSpeed, 100);
+		moveBackgroundBy(ctrlSpeed, 100);
 		
 		// move left on interval
 		leftMover = setInterval(function(){
-			moveBackgroundBy(-ctrlSpeed, 100);
+			moveBackgroundBy(ctrlSpeed, 100);
+		}, ctrlInterval);
+		
+	}).on("touchstart", function(event){
+		
+		// dont process the drag events
+		event.stopPropagation();
+		
+		// don't show the context menu while holding
+		event.preventDefault();
+		
+		// indicate movement
+		indicateMovement();
+		
+		// immediately move 
+		moveBackgroundBy(ctrlSpeed, 100);
+		
+		// move left on interval
+		leftMover = setInterval(function(){
+			moveBackgroundBy(ctrlSpeed, 100);
 		}, ctrlInterval);
 		
 	});
@@ -81,11 +125,30 @@ $.fn.pano = function(options){
 		indicateMovement();
 		
 		// immediately move 
-		moveBackgroundBy(ctrlSpeed, 100);
+		moveBackgroundBy(-ctrlSpeed, 100);
 		
 		// move right on interval
 		rightMover = setInterval(function(){
-			moveBackgroundBy(ctrlSpeed, 100);
+			moveBackgroundBy(-ctrlSpeed, 100);
+		}, ctrlInterval);
+		
+	}).on("touchstart", function(event){
+		
+		// dont process the drag events
+		event.stopPropagation();
+		
+		// don't show the context menu while holding
+		event.preventDefault();
+		
+		// indicate movement
+		indicateMovement();
+		
+		// immediately move 
+		moveBackgroundBy(-ctrlSpeed, 100);
+		
+		// move right on interval
+		rightMover = setInterval(function(){
+			moveBackgroundBy(-ctrlSpeed, 100);
 		}, ctrlInterval);
 		
 	});
@@ -99,21 +162,30 @@ $.fn.pano = function(options){
 		
 		$pano.on("mousemove", function(event){
             
-            // dont move if you're outside the image
-            var $offsetLeft = $pano.offset().left;
-            var maxLeft = $offsetLeft;
-            var maxRight = $offsetLeft + $pano.width();
-            if (event.pageX < maxLeft || event.pageX > maxRight) {
-                return false;
-            } 
-            
-            // calculate the change in position
-			var diff = (event.pageX - startPosition);
-			
-			// move it
-    		moveBackgroundBy(diff, 0, function(){
+            var xPos = event.pageX;
+            dragMove(xPos, startPosition, function(){
     			// after animation is complete, set the "start" position to the current position
-    			startPosition = event.pageX;
+    			startPosition =xPos;
+    		});
+            
+		});
+		
+	}).on("touchstart", function(event){
+		
+		// indicate movement
+		indicateMovement();
+		
+		// don't show the context menu while holding
+		event.preventDefault();
+		
+		var startPosition = event.pageX;
+		
+		$pano.on("touchmove", function(event){
+			
+            var xPos = event.originalEvent.changedTouches[0].pageX;
+            dragMove(xPos, startPosition, function(){
+    			// after animation is complete, set the "start" position to the current position
+    			startPosition = xPos;
     		});
             
 		});
@@ -122,6 +194,12 @@ $.fn.pano = function(options){
 	
 	$("body").on("mouseup", function(){
         $pano.off("mousemove");
+		$pano.stop(true, true);
+		clearInterval(leftMover);
+		clearInterval(rightMover);
+		noMovement();
+	}).on("touchend", function(){
+		$pano.off("touchmove");
 		$pano.stop(true, true);
 		clearInterval(leftMover);
 		clearInterval(rightMover);
