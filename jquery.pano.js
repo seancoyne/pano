@@ -139,9 +139,3 @@ $.fn.pano = function(options){
 	});
 	
 };
-
-$(document).ready(function(){
-	$("#myPano").pano({
-		img: "./sphere.jpg"
-	});
-});
