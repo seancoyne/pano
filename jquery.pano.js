@@ -15,7 +15,7 @@ $.fn.pano = function(options){
 		duration = duration || 0;
 		cb = cb || function(){};
 		$pano.animate({
-			"background-position": newPos.toString() + "px 50%" 
+			"background-position": newPos.toString() + "px"
 		}, duration, "linear", cb);
 	};
 	
@@ -39,22 +39,22 @@ $.fn.pano = function(options){
 	
 	var insideImage = function(mouseXPos) {
 		var $offsetLeft = $pano.offset().left;
-		var maxLeft = $offsetLeft;
-		var maxRight = $offsetLeft + $pano.width();
-		if( mouseXPos < maxLeft || mouseXPos > maxRight) {
-			return false;
-		}
-		return true;
+        var maxLeft = $offsetLeft;
+        var maxRight = $offsetLeft + $pano.width();
+        if( mouseXPos < maxLeft || mouseXPos > maxRight) {
+        	return false;
+        }
+        return true;
 	};
 	
 	var dragMove = function(xPos, startPosition, cb) {
 	
-		// dont move if you're outside the image
-		if (!insideImage(xPos)) {
-			return false;
-		} 
-		
-		// calculate the change in position
+        // dont move if you're outside the image
+        if (!insideImage(xPos)) {
+            return false;
+        } 
+        
+        // calculate the change in position
 		var diff = (xPos - startPosition);
 		
 		// move it
@@ -71,8 +71,8 @@ $.fn.pano = function(options){
 	$pano.css({
 		"background-image": "url('" + options.img + "')",
 		"background-position": "50% 50%",
-		"background-size": "auto 100%",
-		"background-repeat": "repeat-x"
+	    "background-size": "auto 100%",
+	    "background-repeat": "repeat-x"
 	});
 	
 	// set the initial position in pixels (easier math)
@@ -161,13 +161,13 @@ $.fn.pano = function(options){
 		var startPosition = event.pageX;
 		
 		$pano.on("mousemove", function(event){
-			
-			var xPos = event.pageX;
-			dragMove(xPos, startPosition, function(){
-				// after animation is complete, set the "start" position to the current position
-				startPosition =xPos;
-			});
-			
+            
+            var xPos = event.pageX;
+            dragMove(xPos, startPosition, function(){
+    			// after animation is complete, set the "start" position to the current position
+    			startPosition =xPos;
+    		});
+            
 		});
 		
 	}).on("touchstart", function(event){
@@ -182,18 +182,18 @@ $.fn.pano = function(options){
 		
 		$pano.on("touchmove", function(event){
 			
-			var xPos = event.originalEvent.changedTouches[0].pageX;
-			dragMove(xPos, startPosition, function(){
-				// after animation is complete, set the "start" position to the current position
-				startPosition = xPos;
-			});
-			
+            var xPos = event.originalEvent.changedTouches[0].pageX;
+            dragMove(xPos, startPosition, function(){
+    			// after animation is complete, set the "start" position to the current position
+    			startPosition = xPos;
+    		});
+            
 		});
 		
 	});
 	
 	$("body").on("mouseup", function(){
-		$pano.off("mousemove");
+        $pano.off("mousemove");
 		$pano.stop(true, true);
 		clearInterval(leftMover);
 		clearInterval(rightMover);
