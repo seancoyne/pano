@@ -1,3 +1,13 @@
+/*
+
+Pano
+jQuery plugin to display a 360 degree panoramic image
+Sean Coyne
+https://github.com/seancoyne/pano
+https://seancoyne.github.io/pano
+
+*/
+
 $.fn.pano = function(options){
 	
 	// get a handle on the panorama and controls
