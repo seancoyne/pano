@@ -11,28 +11,18 @@ $.fn.pano = function(options){
 		return img.width;
 	};
 	
-	var moveBackgroundTo = function(newPos, duration, cb) {
-		try {
+	var moveBackgroundTo = function(newPos, duration, cb) {		
 		duration = duration || 0;
 		cb = cb || function(){};
-		console.log("moveBackgroundTo", "duration", duration);
 		$pano.animate({
 			"background-position-x": newPos.toString() + "px"
-		}, duration, "easing", cb);
-	} catch (err) {
-		console.error("moveBackgroundTo", err);
-	}
+		}, duration, "linear", cb);
 	};
 	
 	var moveBackgroundBy = function(distance, duration, cb) {
-		try {
 		duration = duration || 0;
 		cb = cb || function(){};
-		console.log("moveBackgroundBy", "duration", duration);
 		moveBackgroundTo(getCurrentPosition() + distance, duration, cb);
-		} catch (err) {
-		console.error("moveBackgroundBy", err);
-	}
 	};
 	
 	var getCurrentPosition = function() {
@@ -73,11 +63,11 @@ $.fn.pano = function(options){
 		indicateMovement();
 		
 		// immediately move 
-		moveBackgroundBy(-ctrlSpeed, 300);
+		moveBackgroundBy(-ctrlSpeed, 100);
 		
 		// move left on interval
 		leftMover = setInterval(function(){
-			moveBackgroundBy(-ctrlSpeed, 300);
+			moveBackgroundBy(-ctrlSpeed, 100);
 		}, ctrlInterval);
 		
 	});
@@ -91,11 +81,11 @@ $.fn.pano = function(options){
 		indicateMovement();
 		
 		// immediately move 
-		moveBackgroundBy(ctrlSpeed, 300);
+		moveBackgroundBy(ctrlSpeed, 100);
 		
 		// move right on interval
 		rightMover = setInterval(function(){
-			moveBackgroundBy(ctrlSpeed, 300);
+			moveBackgroundBy(ctrlSpeed, 100);
 		}, ctrlInterval);
 		
 	});
