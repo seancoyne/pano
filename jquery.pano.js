@@ -10,6 +10,8 @@ https://seancoyne.github.io/pano
 
 $.fn.pano = function(options){
 	
+	this.version = "1.0.0";
+	
 	// get a handle on the panorama and controls
 	var $pano = this;
 	var $leftCtrl = $pano.find(".controls").find("a.left");
