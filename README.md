@@ -1,6 +1,8 @@
 pano
 ====
 
+[![Build Status](https://travis-ci.org/seancoyne/pano.svg?branch=master)](https://travis-ci.org/seancoyne/pano)
+
 jQuery plugin to display a 360 degree panoramic image
 
 ## Options
