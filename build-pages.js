@@ -65,7 +65,7 @@ var setGitName = function(name, cb) {
 };
 
 var setGitEmail = function(email, cb) {
-	setGitConfigValue("user.email", name, cb);
+	setGitConfigValue("user.email", email, cb);
 };
 
 exec("rm -rf " + buildDir, { cwd: baseDir }, function (err){
