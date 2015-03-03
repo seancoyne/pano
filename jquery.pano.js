@@ -12,7 +12,7 @@ https://seancoyne.github.io/pano
 
 jQuery.fn.pano = function(options){
 	
-	this.version = "1.0.0";
+	this.version = "1.1.0";
 	
 	// get a handle on the panorama and controls
 	var $pano = this;
