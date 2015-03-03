@@ -16,5 +16,8 @@
     "url": "https://github.com/seancoyne/pano/issues"
   },
   "homepage": "https://github.com/seancoyne/pano",
-  "dependencies": {}
+  "dependencies": {},
+  "devDependencies": {
+    "jshint": "^2.6.3"
+  }
 }
