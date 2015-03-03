@@ -1,6 +1,8 @@
+/* global jQuery */
+
 /*
 
-Pano
+Pano v1.1.0
 jQuery plugin to display a 360 degree panoramic image
 Sean Coyne
 https://github.com/seancoyne/pano
@@ -8,7 +10,7 @@ https://seancoyne.github.io/pano
 
 */
 
-$.fn.pano = function(options){
+jQuery.fn.pano = function(options){
 	
 	this.version = "1.0.0";
 	
@@ -18,7 +20,7 @@ $.fn.pano = function(options){
 	var $rightCtrl = $pano.find(".controls").find("a.right");
 	
 	var getImageWidth = function(imgSrc) {
-		var img = new Image;
+		var img = new Image();
 		img.src = imgSrc;
 		return img.width;
 	};
@@ -72,12 +74,12 @@ $.fn.pano = function(options){
 		// move it
 		moveBackgroundBy(diff, 0, cb);
 		
-	}
+	};
 	
 	var leftMover,
 		rightMover,
-		ctrlInterval = 100,
-		ctrlSpeed = 50;
+		ctrlInterval = options.interval || 100,
+		ctrlSpeed = options.speed || 50;
 		
 	// setup the initial styling
 	$pano.css({
@@ -90,22 +92,58 @@ $.fn.pano = function(options){
 	// set the initial position in pixels (easier math)
 	var halfWidth = (getImageWidth(options.img) / 2);
 	moveBackgroundTo(halfWidth);
+	
+	var moveLeft = function(interval, speed) {
 		
-	$leftCtrl.on("mousedown", function(event){
-		
-		// dont process the drag events
-		event.stopPropagation();
+		interval = interval || ctrlInterval;
+		speed = speed || ctrlSpeed;
 		
 		// indicate movement
 		indicateMovement();
 		
 		// immediately move 
-		moveBackgroundBy(ctrlSpeed, 100);
+		moveBackgroundBy(speed, 100);
 		
 		// move left on interval
 		leftMover = setInterval(function(){
-			moveBackgroundBy(ctrlSpeed, 100);
-		}, ctrlInterval);
+			moveBackgroundBy(speed, 100);
+		}, interval);
+		
+	};
+	
+	var moveRight = function(interval, speed) {
+		
+		interval = interval || ctrlInterval;
+		speed = speed || ctrlSpeed;
+		
+		// indicate movement
+		indicateMovement();
+		
+		// immediately move 
+		moveBackgroundBy(-speed, 100);
+		
+		// move right on interval
+		rightMover = setInterval(function(){
+			moveBackgroundBy(-speed, 100);
+		}, interval);
+	};
+	
+	var stopMoving = function() {
+		$pano.off("touchmove");
+		$pano.off("mousemove");
+		$pano.stop(true, true);
+		clearInterval(leftMover);
+		clearInterval(rightMover);
+		noMovement();
+	};
+	
+	$leftCtrl.on("mousedown", function(event){
+		
+		// dont process the drag events
+		event.stopPropagation();
+		
+		moveLeft();
+		
 		
 	}).on("touchstart", function(event){
 		
@@ -115,16 +153,7 @@ $.fn.pano = function(options){
 		// don't show the context menu while holding
 		event.preventDefault();
 		
-		// indicate movement
-		indicateMovement();
-		
-		// immediately move 
-		moveBackgroundBy(ctrlSpeed, 100);
-		
-		// move left on interval
-		leftMover = setInterval(function(){
-			moveBackgroundBy(ctrlSpeed, 100);
-		}, ctrlInterval);
+		moveLeft();
 		
 	});
 	
@@ -133,16 +162,7 @@ $.fn.pano = function(options){
 		// dont process the drag events
 		event.stopPropagation();
 		
-		// indicate movement
-		indicateMovement();
-		
-		// immediately move 
-		moveBackgroundBy(-ctrlSpeed, 100);
-		
-		// move right on interval
-		rightMover = setInterval(function(){
-			moveBackgroundBy(-ctrlSpeed, 100);
-		}, ctrlInterval);
+		moveRight();
 		
 	}).on("touchstart", function(event){
 		
@@ -152,16 +172,7 @@ $.fn.pano = function(options){
 		// don't show the context menu while holding
 		event.preventDefault();
 		
-		// indicate movement
-		indicateMovement();
-		
-		// immediately move 
-		moveBackgroundBy(-ctrlSpeed, 100);
-		
-		// move right on interval
-		rightMover = setInterval(function(){
-			moveBackgroundBy(-ctrlSpeed, 100);
-		}, ctrlInterval);
+		moveRight();
 		
 	});
 	
@@ -204,18 +215,16 @@ $.fn.pano = function(options){
 		
 	});
 	
-	$("body").on("mouseup", function(){
-		$pano.off("mousemove");
-		$pano.stop(true, true);
-		clearInterval(leftMover);
-		clearInterval(rightMover);
-		noMovement();
+	jQuery("body").on("mouseup", function(){
+		stopMoving();
 	}).on("touchend", function(){
-		$pano.off("touchmove");
-		$pano.stop(true, true);
-		clearInterval(leftMover);
-		clearInterval(rightMover);
-		noMovement();
+		stopMoving();
 	});
+	
+	return {
+		moveLeft: moveLeft,
+		moveRight: moveRight,
+		stopMoving: stopMoving
+	};
 	
 };
