@@ -1,7 +1,8 @@
 language: node_js
 node_js:
  - "iojs"
-script: grunt build
+script: 
+ - "npm install grunt-cli --global && grunt build"
 
 # create a GitHub Personal Access Token (https://github.com/settings/applications)
 # install the travis gem (sudo gem install travis)
