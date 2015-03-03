@@ -2,7 +2,7 @@
 
 /*
 
-Pano
+Pano v1.1.0
 jQuery plugin to display a 360 degree panoramic image
 Sean Coyne
 https://github.com/seancoyne/pano
