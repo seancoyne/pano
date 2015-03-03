@@ -1,7 +1,7 @@
 language: node_js
 node_js:
-- '0.10'
-script: node build-pages.js
+ - "iojs"
+script: grunt build
 
 # create a GitHub Personal Access Token (https://github.com/settings/applications)
 # install the travis gem (sudo gem install travis)

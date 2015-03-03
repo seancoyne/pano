@@ -2,9 +2,10 @@
   "name": "pano",
   "version": "1.0.0",
   "description": "jQuery plugin to display a 360 degree panoramic image",
-  "main": "build-pages.js",
+  "main": "jquery.pano.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "grunt build"
   },
   "repository": {
     "type": "git",
@@ -18,6 +19,9 @@
   "homepage": "https://github.com/seancoyne/pano",
   "dependencies": {},
   "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-jshint": "^0.11.0",
+    "grunt-gh-pages": "^0.10.0",
     "jshint": "^2.6.3"
   }
 }
