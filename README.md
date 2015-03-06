@@ -5,6 +5,10 @@ pano
 
 jQuery plugin to display a 360 degree panoramic image
 
+## Requires
+
+This plugin has been tested against jQuery 1.8.3.  It should support newer versions but they have not been tested.
+
 ## Options
 
 * `img` - The URL to the background image.  This should be a 360 degree panoramic image.  You should set the CSS so that the width and height of the containing block are your desired size.
@@ -40,3 +44,7 @@ $(document).ready(function(){
 	
 });
 ```
+
+## Other Usage
+
+The plugin supports the CommonJS module system so you can require it using npm and bundle via Browserify.
