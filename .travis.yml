@@ -1,16 +1,13 @@
 branches:
   only:
-    - master
+  - master
 language: node_js
 node_js:
- - "iojs"
-script: 
- - "npm install grunt-cli --global && grunt build"
-
-# create a GitHub Personal Access Token (https://github.com/settings/applications)
-# install the travis gem (sudo gem install travis)
-# and run the command below (fill in your name, email, and token)
-# $ travis encrypt 'GIT_NAME="Your Name" GIT_EMAIL=you@example.com GH_TOKEN=token'
-# replace the value of secure with your generated value
+- iojs
+script:
+- npm install grunt-cli --global && grunt build
 env:
- - secure: TG4X32vWbrFg68u8eutsv7EyYKaqkMGh71Sqxfhd2o/oZmxoiECJJXtba921J9gaMfY2BmhOpPq8R1tNjdEDSQ6IGaokgdy8biu8/xEYJRRnj35JnqtlRp/wXQI6IwgRArGv4uSTPTzVfUgRfRxVzpF3Vp2QxZdMR+DBfbP3cM4=
+- secure: TG4X32vWbrFg68u8eutsv7EyYKaqkMGh71Sqxfhd2o/oZmxoiECJJXtba921J9gaMfY2BmhOpPq8R1tNjdEDSQ6IGaokgdy8biu8/xEYJRRnj35JnqtlRp/wXQI6IwgRArGv4uSTPTzVfUgRfRxVzpF3Vp2QxZdMR+DBfbP3cM4=
+notifications:
+  slack:
+    secure: PUdnGCAwWQ8kPhaJ3U3hgKNZiXiDp94D/kgPR+00oO1WHuJqEAGDULiB1Y0UKMGTI8cy4YFwIomwO9l4Dsg1dj4T73NxYyPBtQDtjsvBf5Bx7SzFeEqVn/qOGCMzXV/di4Z7hBviTluGLvILUpIy9JVVQzl/nPLHLjj7Z2NHO0Y=
