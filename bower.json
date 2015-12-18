@@ -1,0 +1,32 @@
+{
+  "name": "jquery-pano",
+  "description": "jQuery plugin to display a 360 degree panoramic image",
+  "main": "jquery.pano.js",
+  "authors": [
+    "Sean Coyne <sean@n42designs.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "jquery-plugin",
+    "ecosystem:jquery",
+    "panoramic"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/seancoyne/pano.git"
+  },
+  "homepage": "https://github.com/seancoyne/pano",
+  "moduleType": [
+    "node"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": ">=1.8.3"
+  }
+}
