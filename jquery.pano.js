@@ -19,6 +19,8 @@ jQuery.fn.pano = function(options){
 	var $pano = this;
 	var $leftCtrl = $pano.find(".controls").find("button.left");
 	var $rightCtrl = $pano.find(".controls").find("button.right");
+    var $leftCtrlKey = $pano.find(".controls.keyControls").find("button.left");
+	var $rightCtrlKey = $pano.find(".controls.keyControls").find("button.right");;
 	
 	var getImageWidth = function(imgSrc) {
 		var img = new Image();
@@ -137,8 +139,7 @@ jQuery.fn.pano = function(options){
 		clearInterval(rightMover);
 		noMovement();
 	};
-	//Add focusin so the left control can be activated using the keyboard
-	$leftCtrl.on("mousedown focusin", function(event){
+	$leftCtrl.on("mousedown", function(event){
 		
 		// dont process the drag events
 		event.stopPropagation();
@@ -157,15 +158,9 @@ jQuery.fn.pano = function(options){
 		moveLeft();
 		
 	});
-    //Stop the scroll when focus moves away from the left control
-    $leftCtrl.on("focusout", function(event){
-		
-		stopMoving();
 
-        $("#stopScroll").focus();
-	});
 	//Add focusin so the right control can be activated using the keyboard
-	$rightCtrl.on("mousedown focusin", function(event){
+	$rightCtrl.on("mousedown", function(event){
 		
 		// dont process the drag events
 		event.stopPropagation();
@@ -183,14 +178,7 @@ jQuery.fn.pano = function(options){
 		moveRight();
 		
 	});
-    //Stop the scroll when focus moves away from the left control
-    $rightCtrl.on("focusout", function(event){
-		
-		// dont process the drag events
-		stopMoving();
-        $("#stopScroll").focus();
-	});
-	
+
 	$pano.on("mousedown", function(event){
 		
 		// indicate movement
@@ -229,13 +217,33 @@ jQuery.fn.pano = function(options){
 		});
 		
 	});
-	
+    
+ //Keyboard controls
+
+$leftCtrlKey.on("focusin", function(event){
+    event.stopPropagation();
+    moveLeft();
+});
+$leftCtrlKey.on("focusout", function(event){
+    stopMoving();
+    $("#stopScroll").focus();
+});
+$rightCtrlKey.on("focusin", function(event){
+    event.stopPropagation();
+    moveRight();
+});
+$rightCtrlKey.on("focusout", function(event){
+    stopMoving();
+    $("#stopScroll").focus();
+});   
+
+
+
 	jQuery("body").on("mouseup", function(){
 		stopMoving();
 	}).on("touchend", function(){
 		stopMoving();
 	});
-	
 	return {
 		moveLeft: moveLeft,
 		moveRight: moveRight,

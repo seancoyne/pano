@@ -39,9 +39,6 @@
         #myPano{
         position:relative;
         }
-        *:focus{
-        border:5px solid green;
-        }
         .stopScrollLeft{
         width:10rem;
         height:10rem;
@@ -58,12 +55,15 @@
         background:transparent;
         border:none;
         }
+        button.left:focus, button.right:focus{
+        color:green;
+        }
 		</style>
 	</head>
 	<body>
 		<div id="myPano" class="pano" role="region" aria-label="Pano image">
         
-			<div class="controls">
+			<div class="controls keyControls">
 				<button class="left" aria-label="scroll image left">&laquo;</button>
             <div id="stopScroll" tabindex="-1" aria-label="Stop"></div>
 				<button class="right" aria-label="scroll image right">&raquo;</button>
