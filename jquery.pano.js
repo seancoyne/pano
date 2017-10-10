@@ -161,7 +161,7 @@ jQuery.fn.pano = function(options){
 		stopMoving();
         event.stopPropagation();
         $( this ).attr( "aria-pressed", function( i, attr ) {
-            return attr === "true" ? "false" : "true";
+            return attr === "false" ? "true" : "false";
         } );
 	});
 
@@ -188,7 +188,7 @@ jQuery.fn.pano = function(options){
 		stopMoving();
         event.stopPropagation();
         $( this ).attr( "aria-pressed", function( i, attr ) {
-            return attr === "true" ? "false" : "true";
+            return attr === "false" ? "true" : "false";
         } );
 	});
 

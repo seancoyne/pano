@@ -26,10 +26,10 @@
 			font-size: 3em;
 		}
 		.pano .controls button.left {
-			left: 1rem;
+			left: 0;
 		}
 		.pano .controls button.right {
-			right: 2rem;
+			right: 0;
 		}
 		.pano.moving .controls button {
 			color: red;
@@ -37,6 +37,9 @@
 		}
         #myPano{
         position:relative;
+        width:1024px;
+        height:600px;
+        border:5px solid green;
         }
         .stopScrollLeft{
         width:10rem;
@@ -63,9 +66,9 @@
 		<div id="myPano" class="pano" role="region" aria-label="Pano image">
         
 			<div class="controls keyControls">
-				<button class="left" aria-label="scroll image left">&laquo;</button>
+				<button class="left" aria-label="scroll image left" aria-pressed="false">&laquo;</button>
             <div id="stopScroll" tabindex="-1" aria-label="Stop"></div>
-				<button class="right" aria-label="scroll image right">&raquo;</button>
+				<button class="right" aria-label="scroll image right" aria-pressed="false">&raquo;</button>
 			</div>
 		</div>
 		<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
