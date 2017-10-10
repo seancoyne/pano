@@ -17,10 +17,10 @@ jQuery.fn.pano = function(options){
 	
 	// get a handle on the panorama and controls
 	var $pano = this;
-	var $leftCtrl = $pano.find(".controls").find("button.left");
-	var $rightCtrl = $pano.find(".controls").find("button.right");
-    var $leftCtrlKey = $pano.find(".controls.keyControls").find("button.left");
-	var $rightCtrlKey = $pano.find(".controls.keyControls").find("button.right");;
+	var $leftCtrl = $pano.find(".controls").find(".left");
+	var $rightCtrl = $pano.find(".controls").find(".right");
+    var $leftCtrlKey = $pano.find(".controls.keyControls").find(".left");
+	var $rightCtrlKey = $pano.find(".controls.keyControls").find(".right");;
 	
 	var getImageWidth = function(imgSrc) {
 		var img = new Image();
@@ -157,8 +157,15 @@ jQuery.fn.pano = function(options){
 		
 		moveLeft();
 		
+	}).on("mousedown click", function(event){
+		stopMoving();
+        event.stopPropagation();
+        $( this ).attr( "aria-pressed", function( i, attr ) {
+            return attr === "true" ? "false" : "true";
+        } );
 	});
 
+    
 	//Add focusin so the right control can be activated using the keyboard
 	$rightCtrl.on("mouseover", function(event){
 		
@@ -177,6 +184,12 @@ jQuery.fn.pano = function(options){
 		
 		moveRight();
 		
+	}).on("mousedown click", function(event){
+		stopMoving();
+        event.stopPropagation();
+        $( this ).attr( "aria-pressed", function( i, attr ) {
+            return attr === "true" ? "false" : "true";
+        } );
 	});
 
 	$pano.on("mousedown", function(event){
