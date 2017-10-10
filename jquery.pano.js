@@ -240,7 +240,7 @@ $rightCtrlKey.on("focusout", function(event){
 });   
 
 
-	jQuery("body").on("mouseout", function(){
+	jQuery("body").on("mouseout mouseup", function(){
 		stopMoving();
 	}).on("touchend", function(){
 		stopMoving();
