@@ -139,7 +139,7 @@ jQuery.fn.pano = function(options){
 		clearInterval(rightMover);
 		noMovement();
 	};
-	$leftCtrl.on("mousedown", function(event){
+	$leftCtrl.on("mouseover", function(event){
 		
 		// dont process the drag events
 		event.stopPropagation();
@@ -160,7 +160,7 @@ jQuery.fn.pano = function(options){
 	});
 
 	//Add focusin so the right control can be activated using the keyboard
-	$rightCtrl.on("mousedown", function(event){
+	$rightCtrl.on("mouseover", function(event){
 		
 		// dont process the drag events
 		event.stopPropagation();
@@ -227,6 +227,7 @@ $leftCtrlKey.on("focusin", function(event){
 $leftCtrlKey.on("focusout", function(event){
     stopMoving();
     $("#stopScroll").focus();
+    event.stopPropagation();
 });
 $rightCtrlKey.on("focusin", function(event){
     event.stopPropagation();
@@ -235,11 +236,11 @@ $rightCtrlKey.on("focusin", function(event){
 $rightCtrlKey.on("focusout", function(event){
     stopMoving();
     $("#stopScroll").focus();
+    event.stopPropagation();
 });   
 
 
-
-	jQuery("body").on("mouseup", function(){
+	jQuery("body").on("mouseout", function(){
 		stopMoving();
 	}).on("touchend", function(){
 		stopMoving();
