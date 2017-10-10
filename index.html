@@ -17,7 +17,7 @@
 			position: relative;
 			top: 40%;
 		}
-		.pano .controls a {
+		.pano .controls button {
 			position: absolute;
 			display: inline-block;
 			text-decoration: none;
@@ -26,34 +26,66 @@
 			width: 20px;
 			height: 20px;
 		}
-		.pano .controls a.left {
+		.pano .controls button.left {
 			left: 10px;
 		}
-		.pano .controls a.right {
+		.pano .controls button.right {
 			right: 10px;
 		}
-		.pano.moving .controls a {
+		.pano.moving .controls button {
 			opacity: 0.4;
 			color: #eee;
 		}
+        #myPano{
+        position:relative;
+        }
+        *:focus{
+        border:5px solid green;
+        }
+        .stopScrollLeft{
+        width:10rem;
+        height:10rem;
+        background:transparent;
+        }
+        .stopScrollRight{
+        width:10rem;
+        height:10rem;
+        background:transparent;
+        position:absolute;
+        right:0;
+        }
+        button.left, button.right{
+        background:transparent;
+        border:none;
+        }
 		</style>
 	</head>
 	<body>
-		<div id="myPano" class="pano">
+		<div id="myPano" class="pano" role="region" aria-label="Pano image">
+        
 			<div class="controls">
-				<a href="#" class="left">&laquo;</a>
-				<a href="#" class="right">&raquo;</a>
+				<button class="left" aria-label="scroll image left">&laquo;</button>
+            <div id="stopScroll" tabindex="-1" aria-label="Stop"></div>
+				<button class="right" aria-label="scroll image right">&raquo;</button>
 			</div>
 		</div>
-		<script src="//code.jquery.com/jquery-1.8.3.js"></script>
+		<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
 		<script src="jquery.pano.js"></script>
 		<script>
-		/* jshint jquery: true */
-		jQuery(document).ready(function($){
-			$("#myPano").pano({
-				img: "./sphere.jpg"
-			});
-		});
+		$(document).ready(function(){
+	var pano = $("#myPano").pano({
+		img: "./sphere.jpg",
+		interval: 100,
+		speed: 50
+	});
+	
+	pano.moveLeft();
+	pano.stopMoving();
+	pano.moveRight();
+	pano.stopMoving();
+	
+});
+
 		</script>
 	</body>
 </html>
