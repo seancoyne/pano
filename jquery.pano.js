@@ -239,7 +239,6 @@ $leftCtrlKey.on("focusin", function(event){
 });
 $leftCtrlKey.on("focusout", function(event){
     stopMoving();
-    $("#stopScroll").focus();
     event.stopPropagation();
 });
 $rightCtrlKey.on("focusin", function(event){
@@ -248,7 +247,6 @@ $rightCtrlKey.on("focusin", function(event){
 });
 $rightCtrlKey.on("focusout", function(event){
     stopMoving();
-    $("#stopScroll").focus();
     event.stopPropagation();
 });   
 
