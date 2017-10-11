@@ -1,7 +1,7 @@
-/* global jQuery */
+/* global jQuery, module, require */
 /*
 
-Pano v1.1.0
+Pano v1.2.0
 jQuery plugin to display a 360 degree panoramic image
 Sean Coyne
 Updated for keyboard and A11Y by Laurence Lewis
