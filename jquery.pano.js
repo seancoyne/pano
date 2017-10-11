@@ -1,13 +1,13 @@
 /* global jQuery, module, require */
 /*
 
-Pano v1.2.0
+Pano v1.2.1
 jQuery plugin to display a 360 degree panoramic image
 Sean Coyne
-Updated for keyboard and A11Y by Laurence Lewis
 https://github.com/seancoyne/pano
 https://seancoyne.github.io/pano
 
+Updated for keyboard and A11Y by Laurence Lewis
 https://github.com/Decrepidos/pano
 
 */
@@ -19,6 +19,7 @@ jQuery.fn.pano = function(options) {
     var $pano = this;
     var $leftCtrl = $pano.find(".controls").find(".left");
     var $rightCtrl = $pano.find(".controls").find(".right");
+	//Added new variable for keyboard controls. (Laurence)
     var $leftCtrlKey = $pano.find(".controls.keyControls").find(".left");
     var $rightCtrlKey = $pano.find(".controls.keyControls").find(".right");
 
@@ -166,7 +167,7 @@ jQuery.fn.pano = function(options) {
     });
 
 
-    //Add focusin so the right control can be activated using the keyboard
+    //Changed mouse down to mouseover otherwise this conflicts with focusin (Laurence)
     $rightCtrl.on("mouseover", function(event) {
 
         // dont process the drag events
@@ -183,8 +184,13 @@ jQuery.fn.pano = function(options) {
         event.preventDefault();
 
         moveRight();
-
+	
+	/*
+	Added click event for keyboard and aria-pressed after changing <a href to a native button in HTML (Laurence)
+	HTML includes aria-label for screen reader users.
+	*/
     }).on("mousedown click", function(event) {
+		// dont process the drag events
         stopMoving();
         event.stopPropagation();
         jQuery(this).attr("aria-pressed", function(i, attr) {
@@ -231,26 +237,29 @@ jQuery.fn.pano = function(options) {
 
     });
 
-    //Keyboard controls
-
+    //Keyboard controls (Laurence)
+	//Scroll left when button gains focus (Laurence)
     $leftCtrlKey.on("focusin", function(event) {
         event.stopPropagation();
         moveLeft();
     });
-    $leftCtrlKey.on("focusout", function(event) {
+    //Stop scrolling when button loses focus (Laurence)
+	$leftCtrlKey.on("focusout", function(event) {
         stopMoving();
         event.stopPropagation();
     });
+	//Scroll right when button gains focus (Laurence)
     $rightCtrlKey.on("focusin", function(event) {
         event.stopPropagation();
         moveRight();
     });
+	//Stop scrolling when button loses focus (Laurence)
     $rightCtrlKey.on("focusout", function(event) {
         stopMoving();
         event.stopPropagation();
     });
 
-
+	//Add mouseout so scrolling stops when cursor is moved outside the button/s (Laurence)
     jQuery("body").on("mouseout mouseup", function() {
         stopMoving();
     }).on("touchend", function() {
