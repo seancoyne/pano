@@ -1,8 +1,8 @@
 /* global jQuery, module, require */
 
-/*
+/*!
 
-Pano v1.2.0
+Pano v1.3.0
 jQuery plugin to display a 360 degree panoramic image
 Sean Coyne
 https://github.com/seancoyne/pano
@@ -20,7 +20,7 @@ https://seancoyne.github.io/pano
 
 	$.fn.pano = function(options){
 		
-		this.version = "1.2.0";
+		this.version = "1.3.0";
 		
 		// get a handle on the panorama and controls
 		var $pano = this;

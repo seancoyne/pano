@@ -7,7 +7,7 @@ jQuery plugin to display a 360 degree panoramic image
 
 ## Requires
 
-This plugin has been tested against jQuery 1.8.3.  It should support newer versions but they have not been tested.
+This plugin has been tested against jQuery 3.4.1.  It should support other versions but they have not been tested.
 
 ## Options
 
@@ -30,18 +30,16 @@ The plugin returns a public API with 3 methods:
 See https://seancoyne.github.io/pano for working example.
 
 ```javascript
-$(document).ready(function(){
+$(function(){
 	var pano = $("#myPano").pano({
 		img: "/path/to/image.jpg",
 		interval: 100,
 		speed: 50
 	});
-	
 	pano.moveLeft();
 	pano.stopMoving();
 	pano.moveRight();
 	pano.stopMoving();
-	
 });
 ```
 
