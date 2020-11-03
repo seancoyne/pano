@@ -1,6 +1,6 @@
 {
   "name": "jquery-pano",
-  "version": "1.3",
+  "version": "1.3.0",
   "description": "jQuery plugin to display a 360 degree panoramic image",
   "main": "jquery.pano.js",
   "scripts": {
